@@ -1,6 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class PlayArea extends StatelessWidget {
+class PlayArea extends StatefulWidget {
+  @override
+  _PlayAreaState createState() => _PlayAreaState();
+}
+
+class _PlayAreaState extends State<PlayArea> {
+  int leftDiceEyes = 1;
+  int rightDiceEyes = 2;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -12,13 +21,13 @@ class PlayArea extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Image.asset('images/dice1.png'),
+                  child: Image.asset('images/dice$leftDiceEyes.png'),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Image.asset('images/dice2.png'),
+                  child: Image.asset('images/dice$rightDiceEyes.png'),
                 ),
               ),
             ],
@@ -26,7 +35,12 @@ class PlayArea extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  leftDiceEyes = Random().nextInt(6) + 1;
+                  rightDiceEyes = Random().nextInt(6) + 1;
+                });
+              },
               child: Text(
                 'Roll the Dice',
                 style: TextStyle(fontSize: 40),
